@@ -29,6 +29,7 @@ const SearchAndFilter = (props: SearchAndFilterProps) => {
 
     const _onResetFilter = () => {
         setFilterValue(FILTER_DEFAULT_VALUE);
+        props.getFilterValue && props.getFilterValue(FILTER_DEFAULT_VALUE);
     }
 
     return (
