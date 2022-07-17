@@ -92,6 +92,20 @@ exports[`<SearchAndFilter /> renders without crashing 1`] = `
         </div>
       </div>
     </div>
+    <div>
+      <p
+        class="chakra-text css-g5hezf"
+      >
+         
+      </p>
+      <button
+        class="chakra-button css-4xx2wk"
+        data-testid="reset-filter-button"
+        type="button"
+      >
+        Reset Filter
+      </button>
+    </div>
   </div>
 </div>
 `;

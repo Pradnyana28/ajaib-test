@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Input, Text, InputGroup, InputRightAddon, Select } from '@chakra-ui/react';
+import { Flex, Input, Text, InputGroup, InputRightAddon, Select, Button } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
 interface SearchAndFilterProps {
@@ -9,9 +9,11 @@ interface SearchAndFilterProps {
     getFilterValue?: React.Dispatch<React.SetStateAction<any>> | ((value: string) => void);
 };
 
+export const FILTER_DEFAULT_VALUE = 'all';
+
 const SearchAndFilter = (props: SearchAndFilterProps) => {
     const [searchValue, setSearchValue] = React.useState('');
-    const [filterValue, setFilterValue] = React.useState('all');
+    const [filterValue, setFilterValue] = React.useState(FILTER_DEFAULT_VALUE);
 
     const _onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -23,6 +25,10 @@ const SearchAndFilter = (props: SearchAndFilterProps) => {
         e.preventDefault();
         setFilterValue(e.target.value);
         props.getFilterValue && props.getFilterValue(e.target.value);
+    }
+
+    const _onResetFilter = () => {
+        setFilterValue(FILTER_DEFAULT_VALUE);
     }
 
     return (
@@ -52,6 +58,10 @@ const SearchAndFilter = (props: SearchAndFilterProps) => {
                     <option value={'male'} data-testid='gender-filter-male'>Male</option>
                     <option value={'female'} data-testid='gender-filter-female'>Female</option>
                 </Select>
+            </div>
+            <div>
+                <Text fontSize='sm'>&nbsp;</Text>
+                <Button data-testid='reset-filter-button' onClick={_onResetFilter} size='sm'>Reset Filter</Button>
             </div>
         </Flex>
     );
