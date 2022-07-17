@@ -2,7 +2,6 @@ import React from 'react';
 import { Flex, Input, Text, InputGroup, InputRightAddon, Select } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
-
 interface SearchAndFilterProps { };
 
 const SearchAndFilter = (props: SearchAndFilterProps) => {
