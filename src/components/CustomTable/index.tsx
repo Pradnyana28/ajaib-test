@@ -75,6 +75,17 @@ const fetchAPI = async (endpoint: string, options: Record<string, string | undef
     }
 };
 
+const findColumns = (columns: any[], value: string) => columns.map(field => {
+    const searchFields = Object.keys(field).filter(f =>
+        field[f].isSearchable
+        && field[f].value
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+    );
+    return searchFields.length ? field : undefined;
+}).filter(x => x);
+
 const TableContent = ({ data }: { data: TableItem[] }) => {
     const firstItem = data[0];
 
@@ -100,14 +111,21 @@ const TableContent = ({ data }: { data: TableItem[] }) => {
     )
 }
 
+const TableWrapper = ({ columns }: { columns: any[] }) => {
+    return columns?.length ? (
+        <TableContainer>
+            <Table variant='simple'>
+                <TableContent data={columns} />
+            </Table>
+        </TableContainer>
+    ) : <p>No data found.</p>;
+}
+
 const CustomTable = (props: CustomTableProps) => {
     const [columns, setColumns] = React.useState<any[]>([]);
-    const [searchValue, setSearchValue] = React.useState('');
+    const [filteredColumns, setFilteredColumns] = React.useState<any[]>([]);
+    const [searchValue, setSearchValue] = React.useState(null);
     const [filterValue, setFilterValue] = React.useState(FILTER_DEFAULT_VALUE);
-
-    React.useEffect(() => {
-        fetchUsers(props.fetchEndpoint);
-    }, []);
 
     React.useEffect(() => {
         if (filterValue === 'all') {
@@ -118,9 +136,11 @@ const CustomTable = (props: CustomTableProps) => {
     }, [filterValue]);
 
     React.useEffect(() => {
-        setTimeout(() => {
-            searchData(searchValue);
-        }, 750);
+        if (searchValue !== null) {
+            setTimeout(() => {
+                searchColumns(searchValue);
+            }, 750);
+        }
     }, [searchValue]);
 
     const fetchUsers = async (gender?: string) => {
@@ -128,37 +148,23 @@ const CustomTable = (props: CustomTableProps) => {
         if (data) {
             const transformedData = data.results.map(d => props.dataMapping(d));
             setColumns(transformedData);
+            setFilteredColumns(transformedData);
         }
     }
 
-    const searchData = async (value: string) => {
+    const searchColumns = async (value: string) => {
         if (value === '') {
-            fetchUsers(filterValue === 'all' ? undefined : filterValue);
+            setFilteredColumns(columns);
         } else {
-            const searchableFields = columns.map(field => {
-                const searchFields = Object.keys(field).filter(f =>
-                    field[f].isSearchable
-                    && field[f].value
-                        .toString()
-                        .toLowerCase()
-                        .includes(value.toLowerCase())
-                );
-                return searchFields.length ? field : undefined;
-            }).filter(x => x);
-            setColumns(searchableFields);
+            const searchableFields = findColumns(columns, value);
+            setFilteredColumns(searchableFields);
         }
     }
 
     return (
         <>
             <SearchAndFilter getSearchValue={setSearchValue} getFilterValue={setFilterValue} />
-            {columns?.length ? (
-                <TableContainer>
-                    <Table variant='simple'>
-                        <TableContent data={columns} />
-                    </Table>
-                </TableContainer>
-            ) : <p>No data found.</p>}
+            <TableWrapper columns={filteredColumns} />
         </>
     )
 }
