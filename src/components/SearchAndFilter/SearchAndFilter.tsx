@@ -5,8 +5,8 @@ import { SearchIcon } from '@chakra-ui/icons';
 interface SearchAndFilterProps {
     filterValue?: string;
 
-    getSearchValue?: (value: string) => void;
-    getFilterValue?: (value: string) => void;
+    getSearchValue?: React.Dispatch<React.SetStateAction<any>> | ((value: string) => void);
+    getFilterValue?: React.Dispatch<React.SetStateAction<any>> | ((value: string) => void);
 };
 
 const SearchAndFilter = (props: SearchAndFilterProps) => {
