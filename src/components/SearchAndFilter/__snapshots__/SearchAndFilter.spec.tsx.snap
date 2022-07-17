@@ -56,7 +56,6 @@ exports[`<SearchAndFilter /> renders without crashing 1`] = `
           </option>
           <option
             data-testid="gender-filter-all"
-            selected=""
             value="all"
           >
             All

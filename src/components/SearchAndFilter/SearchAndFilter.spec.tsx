@@ -38,4 +38,27 @@ describe('<SearchAndFilter />', () => {
 
         expect(inputElement.value).toBe('Hello world');
     });
+
+    it('should able to override filter value', async () => {
+        const { getByTestId } = render(<SearchAndFilter />) as any;
+
+        fireEvent.select(getByTestId('gender-filter'), {
+            target: {
+                value: 'male'
+            }
+        });
+
+        expect((getByTestId('gender-filter-male') as HTMLOptionElement).selected).toBe(true);
+    });
+
+    it('should able to change the filter options', async () => {
+        const { getByTestId } = render(<SearchAndFilter />);
+        const selectElement = getByTestId('gender-filter') as HTMLSelectElement;
+
+        await waitFor(
+            () => userEvent.selectOptions(selectElement, 'male')
+        );
+
+        expect(selectElement.value).toBe('male');
+    });
 });

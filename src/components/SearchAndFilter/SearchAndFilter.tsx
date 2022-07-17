@@ -6,16 +6,23 @@ interface SearchAndFilterProps {
     filterValue?: string;
 
     getSearchValue?: (value: string) => void;
-    onFilterChange?: React.ChangeEventHandler<HTMLSelectElement>;
+    getFilterValue?: (value: string) => void;
 };
 
 const SearchAndFilter = (props: SearchAndFilterProps) => {
     const [searchValue, setSearchValue] = React.useState('');
+    const [filterValue, setFilterValue] = React.useState('all');
 
     const _onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         setSearchValue(e.target.value);
         props.getSearchValue && props.getSearchValue(e.target.value);
+    }
+
+    const _onFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        e.preventDefault();
+        setFilterValue(e.target.value);
+        props.getFilterValue && props.getFilterValue(e.target.value);
     }
 
     return (
@@ -37,10 +44,9 @@ const SearchAndFilter = (props: SearchAndFilterProps) => {
                 <Select
                     data-testid='gender-filter'
                     size='sm'
-                    defaultValue='all'
-                    value={props.filterValue}
+                    value={filterValue}
                     placeholder='Select Gender'
-                    onChange={props.onFilterChange}
+                    onChange={_onFilterChange}
                 >
                     <option value={'all'} data-testid='gender-filter-all'>All</option>
                     <option value={'male'} data-testid='gender-filter-male'>Male</option>
