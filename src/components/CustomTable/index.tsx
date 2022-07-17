@@ -61,61 +61,68 @@ export interface CustomTableProps {
     getFilterValue?: React.Dispatch<React.SetStateAction<any>> | ((value: string) => void);
 }
 
+const fetchAPI = async (endpoint: string, gender?: string) => {
+    const queryString = new URLSearchParams({
+        ...(gender ? { gender: gender } : undefined),
+        results: String(10),
+        page: String(1),
+        // inc: 'name,gender,login,registered,email'
+    });
+    const response = await fetch(`${endpoint}?${queryString}`);
+
+    if (response.ok) {
+        return await response.json() as RandomResponse;
+    }
+};
+
+const TableContent = ({ data }: { data: TableItem[] }) => {
+    const firstItem = data[0];
+
+    const _onHandleSort = (field: string) => {
+        console.log(field);
+    }
+
+    return (
+        <>
+            <Thead>
+                <Tr>
+                    {Object.keys((firstItem)).map(d => <Th key={d} isNumeric={data[0][d].isNumeric} onClick={() => _onHandleSort(d)}>{d}</Th>)}
+                </Tr>
+            </Thead>
+            <Tbody>
+                {data.map((d, idx) => (
+                    <Tr key={idx}>
+                        {Object.keys(d).map(item => <Td key={item} isNumeric={d[item].isNumeric}>{d[item].value}</Td>)}
+                    </Tr>
+                ))}
+            </Tbody>
+        </>
+    )
+}
+
 const CustomTable = (props: CustomTableProps) => {
     const [users, setUsers] = React.useState<any[]>([]);
     const [searchValue, setSearchValue] = React.useState('');
     const [filterValue, setFilterValue] = React.useState(FILTER_DEFAULT_VALUE);
 
     React.useEffect(() => {
-        fetchUsers();
+        fetchUsers(props.fetchEndpoint);
     }, []);
 
     React.useEffect(() => {
         if (filterValue === 'all') {
-            fetchUsers();
+            fetchUsers(props.fetchEndpoint);
         } else {
-            fetchUsers(filterValue);
+            fetchUsers(props.fetchEndpoint, filterValue);
         }
     }, [filterValue]);
 
-    const _onHandleSort = (field: string) => {
-        console.log(field);
-    }
-
-    const fetchUsers = async (gender?: string) => {
-        const queryString = new URLSearchParams({
-            ...(gender ? { gender: gender } : undefined),
-            results: String(10),
-            page: String(1),
-            inc: 'name,gender,login,registered,email'
-        });
-        const response = await fetch(`${props.fetchEndpoint}?${queryString}`);
-
-        if (response.ok) {
-            const data = await response.json() as RandomResponse;
+    const fetchUsers = async (endpoint: string, gender?: string) => {
+        const data = await fetchAPI(endpoint, gender);
+        if (data) {
             const transformedData = data.results.map(d => props.dataMapping(d));
             setUsers(transformedData);
         }
-    };
-
-    const renderDataTable = (data: TableItem[]) => {
-        const firstItem = data[0];
-        return (
-            <>
-                <Thead>
-                    <Tr>
-                        {Object.keys((firstItem)).map(d => <Th key={d} isNumeric={data[0][d].isNumeric} onClick={() => _onHandleSort(d)}>{d}</Th>)}
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {data.map((d, idx) => (
-                        <Tr key={idx}>
-                            {Object.keys(d).map(item => <Td key={item} isNumeric={d[item].isNumeric}>{d[item].value}</Td>)}
-                        </Tr>
-                    ))}
-                </Tbody>
-            </>
-        )
     }
 
     return (
@@ -124,10 +131,10 @@ const CustomTable = (props: CustomTableProps) => {
             {users?.length ? (
                 <TableContainer>
                     <Table variant='simple'>
-                        {renderDataTable(users)}
+                        <TableContent data={users} />
                     </Table>
                 </TableContainer>
-            ) : <p>Table wrongly initiated.</p>}
+            ) : <p>No data found.</p>}
         </>
     )
 }
