@@ -10,6 +10,7 @@ module.exports = {
     setupFiles: [
         "<rootDir>/tests/loadershim.js"
     ],
+    setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
     testEnvironment: "jsdom",
     testMatch: [
         "<rootDir>/src/**/**/?(*.)+(spec).[jt]s?(x)"
