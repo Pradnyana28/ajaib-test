@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Flex,
     Stack,
@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { Sorting } from '../CustomTable';
+import { CustomTableContext } from '../../store/customTable';
 
 interface TableData {
     label: string;
@@ -27,11 +28,20 @@ export interface TableItem {
     [field: string]: TableData;
 };
 
-const TableWrapper = (props: { data: TableItem[], handleSort: (field: string, sorting: Sorting) => void }) => {
+const TableWrapper = (props: { data: TableItem[] }) => {
+    const { state, update } = useContext(CustomTableContext);
+
     const firstItem = props.data[0];
 
     const _onHandleSort = (field: string, sorting: Sorting) => {
-        props.handleSort(field, sorting === Sorting.ASCENDING ? Sorting.DESCENDING : Sorting.ASCENDING);
+        // props.handleSort(field, sorting === Sorting.ASCENDING ? Sorting.DESCENDING : Sorting.ASCENDING);
+        update({
+            ...state,
+            sort: {
+                by: field,
+                order: sorting === Sorting.ASCENDING ? Sorting.DESCENDING : Sorting.ASCENDING
+            }
+        });
     }
 
     return props.data?.length ? (

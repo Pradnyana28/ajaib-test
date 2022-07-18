@@ -10,7 +10,7 @@ global.fetch = jest.fn(() =>
 
 describe('<CustomTable />', () => {
     it('renders without crashing', async () => {
-        const { container } = render(<CustomTable fetchEndpoint='' dataMapping={(data) => ({})} />);
+        const { container } = render(<CustomTable fetchEndpoint='' dataMapping={(data) => ([])} />);
         expect(container).toMatchSnapshot();
     });
 });

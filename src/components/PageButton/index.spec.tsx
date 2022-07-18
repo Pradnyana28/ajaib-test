@@ -4,7 +4,7 @@ import PageButton from '.';
 
 describe('<PageButton />', () => {
     it('renders without crashing', async () => {
-        const { container } = render(<PageButton page={1} pageNumber={10} />);
+        const { container } = render(<PageButton pageNumber={10} />);
         expect(container).toMatchSnapshot();
     });
 });

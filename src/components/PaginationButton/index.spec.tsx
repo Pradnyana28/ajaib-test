@@ -4,7 +4,7 @@ import PaginationButton from '.';
 
 describe('<PaginationButton />', () => {
     it('renders without crashing', async () => {
-        const { container } = render(<PaginationButton page={1} totalPage={10} />);
+        const { container } = render(<PaginationButton totalPage={10} />);
         expect(container).toMatchSnapshot();
     });
 });

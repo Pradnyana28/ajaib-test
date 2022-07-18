@@ -122,7 +122,7 @@ exports[`<CustomTable /> renders without crashing 1`] = `
           1
         </b>
          of 
-        513
+        10
       </p>
       <div
         class="css-17xejub"
@@ -185,38 +185,29 @@ exports[`<CustomTable /> renders without crashing 1`] = `
         >
           6
         </button>
-        <p>
-          ...
-        </p>
         <button
           class="chakra-button css-4xx2wk"
           type="button"
         >
-          509
+          7
         </button>
         <button
           class="chakra-button css-4xx2wk"
           type="button"
         >
-          510
+          8
         </button>
         <button
           class="chakra-button css-4xx2wk"
           type="button"
         >
-          511
+          9
         </button>
         <button
           class="chakra-button css-4xx2wk"
           type="button"
         >
-          512
-        </button>
-        <button
-          class="chakra-button css-4xx2wk"
-          type="button"
-        >
-          513
+          10
         </button>
         <button
           aria-label="Next page"

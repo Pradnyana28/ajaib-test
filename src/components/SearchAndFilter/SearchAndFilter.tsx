@@ -1,36 +1,51 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Flex, Input, Text, InputGroup, InputRightAddon, Select, Button } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
+import { CustomTableContext } from '../../store/customTable';
 
 interface SearchAndFilterProps {
     filterValue?: string;
-
-    getSearchValue?: React.Dispatch<React.SetStateAction<any>> | ((value: string) => void);
-    getFilterValue?: React.Dispatch<React.SetStateAction<any>> | ((value: string) => void);
 };
 
 export const FILTER_DEFAULT_VALUE = 'all';
 
 const SearchAndFilter = (props: SearchAndFilterProps) => {
-    const [searchValue, setSearchValue] = React.useState('');
-    const [filterValue, setFilterValue] = React.useState(FILTER_DEFAULT_VALUE);
+    const { state, update } = useContext(CustomTableContext);
+    const [searchValue, setSearchValue] = React.useState<string | null>(null);
+
+    React.useEffect(() => {
+        if (searchValue !== null) {
+            setTimeout(() => {
+                console.log(searchValue)
+                update({
+                    ...state,
+                    searchValue
+                });
+            }, 1280);
+        }
+    }, [searchValue]);
 
     const _onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
+
         setSearchValue(e.target.value);
-        props.getSearchValue && props.getSearchValue(e.target.value);
     }
 
     const _onFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
-        setFilterValue(e.target.value);
-        props.getFilterValue && props.getFilterValue(e.target.value);
+
+        update({
+            ...state,
+            filterValue: e.target.value
+        });
     }
 
     const _onResetFilter = () => {
-        setFilterValue(FILTER_DEFAULT_VALUE);
-        setSearchValue('');
-        props.getFilterValue && props.getFilterValue(FILTER_DEFAULT_VALUE);
+        update({
+            ...state,
+            filterValue: FILTER_DEFAULT_VALUE,
+            searchValue: ''
+        });
     }
 
     return (
@@ -41,7 +56,7 @@ const SearchAndFilter = (props: SearchAndFilterProps) => {
                     <Input
                         data-testid='search-input'
                         placeholder='Search Keywords'
-                        value={searchValue}
+                        value={searchValue || ''}
                         onChange={_onSearchChange}
                     />
                     <InputRightAddon children={<SearchIcon />} />
@@ -52,7 +67,7 @@ const SearchAndFilter = (props: SearchAndFilterProps) => {
                 <Select
                     data-testid='gender-filter'
                     size='sm'
-                    value={filterValue}
+                    value={state.filterValue ?? FILTER_DEFAULT_VALUE}
                     placeholder='Select Gender'
                     onChange={_onFilterChange}
                 >

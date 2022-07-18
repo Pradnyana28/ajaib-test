@@ -19,12 +19,12 @@ describe('<TableWrapper />', () => {
     ];
 
     it('renders without crashing: no data', async () => {
-        const { container } = render(<TableWrapper data={[]} handleSort={mockSortHandler} />);
+        const { container } = render(<TableWrapper data={[]} />);
         expect(container.innerHTML).toEqual('<p>No data found.</p>');
     });
 
     it('renders without crashing: with data', async () => {
-        const { container } = render(<TableWrapper data={mockColumnsData} handleSort={mockSortHandler} />);
+        const { container } = render(<TableWrapper data={mockColumnsData} />);
         expect(container).toMatchSnapshot();
     });
 });

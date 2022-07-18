@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Flex,
     IconButton,
@@ -7,34 +7,53 @@ import {
 } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import PaginateButton from '../PaginateButton';
+import { CustomTableContext } from '../../store/customTable';
 
 const PaginationButton = (props: {
-    page: number;
     totalPage: number;
-    handlePreviousPage?: () => void;
-    handleNextPage?: () => void;
-    handlePaginateButton?: (pageNumber: number) => void
 }) => {
+    const { state, update } = useContext(CustomTableContext);
+
+    const _handlePagination = (page: number) => {
+        update({
+            ...state,
+            page: page
+        });
+    }
+
+    const _handlePreviousPage = () => {
+        update({
+            ...state,
+            page: --state.page
+        });
+    }
+
+    const _handleNextPage = () => {
+        update({
+            ...state,
+            page: ++state.page
+        });
+    }
+
     return (
         <Flex minWidth='max-content'>
-            <p>Page <b>{props.page}</b> of {props.totalPage}</p>
+            <p>Page <b>{state.page}</b> of {props.totalPage}</p>
             <Spacer />
             <Stack spacing={1} direction='row' align='center'>
                 <IconButton
                     aria-label='Previous page'
-                    isActive={props.page <= 1}
+                    isActive={state.page <= 1}
                     size='sm'
-                    onClick={props.page > 1 ? props.handlePreviousPage : undefined} icon={<ChevronLeftIcon />}
+                    onClick={state.page > 1 ? _handlePreviousPage : undefined} icon={<ChevronLeftIcon />}
                 />
                 <PaginateButton
                     totalPage={props.totalPage}
-                    page={props.page}
-                    handlePaginateButton={props.handlePaginateButton}
+                    handlePaginateButton={(pageNumber) => _handlePagination(pageNumber)}
                 />
                 <IconButton
                     aria-label='Next page'
-                    isActive={props.page >= props.totalPage}
-                    size='sm' onClick={props.page < props.totalPage ? props.handleNextPage : undefined}
+                    isActive={state.page >= props.totalPage}
+                    size='sm' onClick={state.page < props.totalPage ? _handleNextPage : undefined}
                     icon={<ChevronRightIcon />} />
             </Stack>
         </Flex>

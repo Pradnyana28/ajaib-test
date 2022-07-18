@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Button,
 } from '@chakra-ui/react';
+import { CustomTableContext } from '../../store/customTable';
 
 const PageButton = (props: {
-    page: number;
     pageNumber: number;
     handlePaginateButton?: (pageNumber: number) => void;
-}) => <Button size='sm' isActive={props.page === props.pageNumber} onClick={() => props.handlePaginateButton && props.handlePaginateButton(props.pageNumber)}>{props.pageNumber}</Button>;
+}) => {
+    const { state } = useContext(CustomTableContext);
+
+    return (
+        <Button
+            size='sm'
+            isActive={state.page === props.pageNumber}
+            onClick={() => props.handlePaginateButton && props.handlePaginateButton(props.pageNumber)}
+        >{props.pageNumber}</Button>
+    );
+};
 
 export default PageButton;

@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomTable from '../components/CustomTable';
 import { Container } from '@chakra-ui/react';
+import { CustomTableProvider } from '../store/customTable';
 
 interface RandomResponse {
   info: {
@@ -59,12 +60,14 @@ const _dataMapping = (response: RandomResponse) => {
 
 const IndexPage = () => {
   return (
-    <Container maxW='1200px'>
-      <CustomTable
-        fetchEndpoint='https://randomuser.me/api'
-        dataMapping={_dataMapping}
-      />
-    </Container>
+    <CustomTableProvider>
+      <Container maxW='1200px'>
+        <CustomTable
+          fetchEndpoint='https://randomuser.me/api'
+          dataMapping={_dataMapping}
+        />
+      </Container>
+    </CustomTableProvider>
   );
 };
 

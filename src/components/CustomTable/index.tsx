@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Stack,
 } from '@chakra-ui/react';
@@ -6,23 +6,16 @@ import SearchAndFilter, { FILTER_DEFAULT_VALUE } from '../SearchAndFilter/Search
 import * as Rambda from 'rambda';
 import PaginationButton from '../PaginationButton';
 import TableWrapper from '../TableWrapper';
+import { CustomTableContext } from '../../store/customTable';
 
 export enum Sorting {
     DESCENDING = 'DESCENDING',
     ASCENDING = 'ASCENDING'
 }
 
-interface SortData {
-    by: string;
-    order: Sorting;
-};
-
 export interface CustomTableProps {
     fetchEndpoint: string;
     dataMapping: (response: any) => Record<string, Record<string, any>>[];
-
-    getSearchValue?: React.Dispatch<React.SetStateAction<any>> | ((value: string) => void);
-    getFilterValue?: React.Dispatch<React.SetStateAction<any>> | ((value: string) => void);
 }
 
 const fetchAPI = async (endpoint: string, page: string, pageSize: string, options: Record<string, string | undefined>) => {
@@ -50,52 +43,35 @@ const sortBy = (by: string, order: Sorting, data: any[]) => {
     return sortedColumns;
 };
 
-const ROWS_SIZE = 5123;
+const ROWS_SIZE = 1000;
 const ROWS_PER_PAGE = 10;
 const PAGE_LENGTH = Math.ceil(ROWS_SIZE / ROWS_PER_PAGE);
 
 const CustomTable = (props: CustomTableProps) => {
+    const { state } = useContext(CustomTableContext);
+
     const [filteredColumns, setFilteredColumns] = React.useState<any[]>([]);
-    const [sort, setSort] = React.useState<SortData>();
-    const [page, setPage] = React.useState(1);
-    const [searchValue, setSearchValue] = React.useState(null);
-    const [filterValue, setFilterValue] = React.useState(FILTER_DEFAULT_VALUE);
 
     React.useEffect(() => {
-        if (filterValue === 'all') {
-            fetchData(page, undefined, searchValue, sort);
-        } else {
-            fetchData(page, filterValue, searchValue, sort);
-        }
-    }, [filterValue]);
-
-    React.useEffect(() => {
-        if (searchValue !== null) {
-            setTimeout(() => {
-                fetchData(page, filterValue, searchValue, sort);
-            }, 750);
-        }
-    }, [searchValue]);
+        fetchData(state as any);
+    }, [state]);
 
     const fetchData = async (
-        page: number,
-        gender?: string,
-        searchValue?: string | null,
-        sort?: SortData
+        store: typeof state
     ) => {
         const pageNumberFloor = Math.floor(ROWS_SIZE / ROWS_PER_PAGE);
-        const offset = page > pageNumberFloor ? (ROWS_SIZE / ROWS_PER_PAGE).toString().split('.')[1][0] : String(ROWS_PER_PAGE);
+        const offset = store.page > pageNumberFloor ? (ROWS_SIZE / ROWS_PER_PAGE).toString().split('.')[1][0] : String(ROWS_PER_PAGE);
         const options = {
-            ...(gender && gender !== FILTER_DEFAULT_VALUE ? { gender } : undefined),
-            ...(searchValue ? { keyword: searchValue } : undefined),
-            ...(sort ? { sortBy: sort.by, sortOrder: sort.order.toLowerCase() } : undefined)
+            ...(store.filterValue && store.filterValue !== FILTER_DEFAULT_VALUE ? { gender: store.filterValue } : undefined),
+            ...(store.searchValue ? { keyword: store.searchValue } : undefined),
+            ...(store.sort ? { sortBy: store.sort.by, sortOrder: store.sort.order.toLowerCase() } : undefined)
         };
-        const data = await fetchAPI(props.fetchEndpoint, String(page), offset, options);
+        const data = await fetchAPI(props.fetchEndpoint, String(store.page), offset, options);
         if (data) {
             const transformedData = props.dataMapping(data);
-            if (sort) {
+            if (store.sort) {
                 setFilteredColumns(
-                    sortBy(sort.by, sort.order, transformedData)
+                    sortBy(store.sort.by, store.sort.order, transformedData)
                 );
             } else {
                 setFilteredColumns(transformedData);
@@ -103,44 +79,11 @@ const CustomTable = (props: CustomTableProps) => {
         }
     }
 
-    const _handleSort = (field: string, sorting: Sorting) => {
-        const dataSort = { by: field, order: sorting };
-        setSort(dataSort);
-        fetchData(page, filterValue, searchValue, dataSort);
-    }
-
-    const _handlePagination = (page: number) => {
-        setPage(page);
-        fetchData(page, filterValue, searchValue, sort);
-    }
-
-    const _handlePreviousPage = () => {
-        setPage(prev => {
-            prev--;
-            fetchData(page, filterValue, searchValue, sort);
-            return prev;
-        });
-    }
-
-    const _handleNextPage = () => {
-        setPage(prev => {
-            prev++;
-            fetchData(page, filterValue, searchValue, sort);
-            return prev;
-        });
-    }
-
     return (
         <Stack direction='column' spacing={4}>
-            <SearchAndFilter getSearchValue={setSearchValue} getFilterValue={setFilterValue} />
-            <TableWrapper data={filteredColumns} handleSort={_handleSort} />
-            <PaginationButton
-                page={page}
-                totalPage={PAGE_LENGTH}
-                handlePaginateButton={(pageNumber) => _handlePagination(pageNumber)}
-                handlePreviousPage={() => _handlePreviousPage()}
-                handleNextPage={() => _handleNextPage()}
-            />
+            <SearchAndFilter />
+            <TableWrapper data={filteredColumns} />
+            <PaginationButton totalPage={PAGE_LENGTH} />
         </Stack>
     )
 }
