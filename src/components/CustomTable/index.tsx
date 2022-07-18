@@ -12,6 +12,11 @@ export enum Sorting {
     ASCENDING = 'ASCENDING'
 }
 
+interface SortData {
+    by: string;
+    order: Sorting;
+};
+
 export interface CustomTableProps {
     fetchEndpoint: string;
     dataMapping: (response: any) => Record<string, Record<string, any>>[];
@@ -34,37 +39,50 @@ const fetchAPI = async (endpoint: string, page: string, pageSize: string, option
     }
 };
 
+const sortByPath = Rambda.pipe(Rambda.path, Rambda.sortBy);
+const sortBy = (by: string, order: Sorting, data: any[]) => {
+    const sortAscending = sortByPath([by, 'value']);
+    const sortDescending = Rambda.pipe(sortAscending as any, Rambda.reverse);
+    const result = order === Sorting.DESCENDING
+        ? sortDescending(data) as unknown as any[]
+        : sortAscending(data);
+    const sortedColumns: any[] = Rambda.assocPath([0, by, 'sorting'], order, result);
+    return sortedColumns;
+};
+
 const ROWS_SIZE = 5123;
 const ROWS_PER_PAGE = 10;
 const PAGE_LENGTH = Math.ceil(ROWS_SIZE / ROWS_PER_PAGE);
 
-const sortByPath = Rambda.pipe(Rambda.path, Rambda.sortBy);
-
 const CustomTable = (props: CustomTableProps) => {
-    const [columns, setColumns] = React.useState<any[]>([]);
     const [filteredColumns, setFilteredColumns] = React.useState<any[]>([]);
-    const [sort, setSort] = React.useState<{ by: string, order: Sorting }>();
+    const [sort, setSort] = React.useState<SortData>();
     const [page, setPage] = React.useState(1);
     const [searchValue, setSearchValue] = React.useState(null);
     const [filterValue, setFilterValue] = React.useState(FILTER_DEFAULT_VALUE);
 
     React.useEffect(() => {
         if (filterValue === 'all') {
-            fetchData(page);
+            fetchData(page, undefined, searchValue, sort);
         } else {
-            fetchData(page, filterValue, searchValue);
+            fetchData(page, filterValue, searchValue, sort);
         }
     }, [filterValue]);
 
     React.useEffect(() => {
         if (searchValue !== null) {
             setTimeout(() => {
-                fetchData(page, filterValue, searchValue);
+                fetchData(page, filterValue, searchValue, sort);
             }, 750);
         }
     }, [searchValue]);
 
-    const fetchData = async (page: number, gender?: string, searchValue?: string | null, sort?: { by: string; order: Sorting }) => {
+    const fetchData = async (
+        page: number,
+        gender?: string,
+        searchValue?: string | null,
+        sort?: SortData
+    ) => {
         const pageNumberFloor = Math.floor(ROWS_SIZE / ROWS_PER_PAGE);
         const offset = page > pageNumberFloor ? (ROWS_SIZE / ROWS_PER_PAGE).toString().split('.')[1][0] : String(ROWS_PER_PAGE);
         const options = {
@@ -75,13 +93,10 @@ const CustomTable = (props: CustomTableProps) => {
         const data = await fetchAPI(props.fetchEndpoint, String(page), offset, options);
         if (data) {
             const transformedData = props.dataMapping(data);
-            setColumns(transformedData);
             if (sort) {
-                const sortAscending = sortByPath([sort.by, 'value']);
-                const sortDescending = Rambda.pipe(sortAscending as any, Rambda.reverse);
-                const result = sort.order === Sorting.DESCENDING ? sortDescending(columns) as unknown as any[] : sortAscending(columns);
-                const sortedColumns: any[] = Rambda.assocPath([0, sort.by, 'sorting'], sort.order, result);
-                setFilteredColumns(sortedColumns);
+                setFilteredColumns(
+                    sortBy(sort.by, sort.order, transformedData)
+                );
             } else {
                 setFilteredColumns(transformedData);
             }
@@ -89,8 +104,9 @@ const CustomTable = (props: CustomTableProps) => {
     }
 
     const _handleSort = (field: string, sorting: Sorting) => {
-        setSort({ by: field, order: sorting });
-        fetchData(page, filterValue, searchValue, sort);
+        const dataSort = { by: field, order: sorting };
+        setSort(dataSort);
+        fetchData(page, filterValue, searchValue, dataSort);
     }
 
     const _handlePagination = (page: number) => {
