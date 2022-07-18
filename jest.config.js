@@ -25,5 +25,20 @@ module.exports = {
     },
     transformIgnorePatterns: [
         "node_modules/(?!(gatsby)/)"
-    ]
+    ],
+    collectCoverageFrom: [
+        "src/**/*.(t|j)sx"
+    ],
+    coverageDirectory: "./coverage",
+    coveragePathIgnorePatterns: [],
+    coverageReporters: [
+        "text-summary",
+        "text",
+        "html"
+    ],
+    coverageThreshold: {
+        global: {
+            "lines": 70
+        }
+    },
 };
