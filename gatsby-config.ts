@@ -10,7 +10,9 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
-    "@chakra-ui/gatsby-plugin"
+    "@chakra-ui/gatsby-plugin",
+    "gatsby-plugin-webpack-bundle-analyser-v2",
+    "gatsby-plugin-perf-budgets"
   ],
 }
 
