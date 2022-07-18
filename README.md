@@ -1,54 +1,55 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal TypeScript starter
-</h1>
+# Random User Display Table
 
-## 🚀 Quick start
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d3f3f3d9-e8bf-494e-a682-8569574ab600/deploy-status)](https://app.netlify.com/sites/wondrous-maamoul-a96616/deploys)
 
-1.  **Create a Gatsby site.**
+[Live Preview](https://wondrous-maamoul-a96616.netlify.app/)
 
-    Use the Gatsby CLI to create a new site, specifying the minimal TypeScript starter.
+This project is about displaying the results from `https://randomuser.me/api` free API with simple table from Chakra UI. The features includes:
+- Search (Debounce)
+- Filter by Gender
+- Sort by header
+- Pagination
 
-    ```shell
-    # create a new Gatsby site using the minimal TypeScript starter
-    npm init gatsby
-    ```
+![Table Preview](https://i.ibb.co/ykdWjr4/Screenshot-2022-07-18-195126.png)
 
-2.  **Start developing.**
+## How to Use
 
-    Navigate into your new site’s directory and start it up.
+This project developed with Gatsby.js to since it only a client-side works with a minimum resources. Please head to [Gatsby.js Documentation](https://www.gatsbyjs.com/docs/) for more details about Routing, Querying, Styling, etc.
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+To build the project, you can run this command:
 
-3.  **Open the code and start customizing!**
+```bash
+npm run build
+```
 
-    Your site is now running at http://localhost:8000!
+For the development and live preview, you can execute this command:
 
-    Edit `src/pages/index.tsx` to see your site update in real-time!
+```bash
+npm run develop
+```
 
-4.  **Learn more**
+## Unit Testing
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
+This project only have Unit Testing set up. Hence, run this command to see the current UT state.
 
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
+```bash
+npm run test
+```
 
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
+Run this command to see the code coverage results:
 
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
+```bash
+npm run test:coverage
+```
 
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
+Run this command to see the test while development:
 
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
+```bash
+npm run test:watch
+```
 
-## 🚀 Quick start (Gatsby Cloud)
+## Performance
 
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
+This project already implement some of Gatsby.js Best Practices to improve the site performance such as using Preact plugin and Bundle Profiling.
 
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal-ts)
+Please refer to this documentation for more details [Performance and Scaling](https://www.gatsbyjs.com/docs/how-to/performance/).

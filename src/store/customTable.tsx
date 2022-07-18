@@ -1,5 +1,4 @@
 import { Sorting } from "../components/CustomTable";
-import { FILTER_DEFAULT_VALUE } from "../components/SearchAndFilter/SearchAndFilter";
 import { createCustomContext } from "./contextInitiator";
 
 interface SortData {
@@ -17,7 +16,7 @@ interface CustomTableContextProperties {
 const customTableInitialValues: CustomTableContextProperties = {
     page: 1,
     searchValue: null,
-    filterValue: FILTER_DEFAULT_VALUE
+    filterValue: 'all'
 };
 
 const [ctx, provider] = createCustomContext(customTableInitialValues);
