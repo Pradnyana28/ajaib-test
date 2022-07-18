@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PaginateButton /> renders without crashing 1`] = `
+<div>
+  <button
+    class="chakra-button css-4xx2wk"
+    data-active=""
+    type="button"
+  >
+    1
+  </button>
+  <button
+    class="chakra-button css-4xx2wk"
+    type="button"
+  >
+    2
+  </button>
+  <button
+    class="chakra-button css-4xx2wk"
+    type="button"
+  >
+    3
+  </button>
+  <button
+    class="chakra-button css-4xx2wk"
+    type="button"
+  >
+    4
+  </button>
+  <button
+    class="chakra-button css-4xx2wk"
+    type="button"
+  >
+    5
+  </button>
+  <button
+    class="chakra-button css-4xx2wk"
+    type="button"
+  >
+    6
+  </button>
+  <button
+    class="chakra-button css-4xx2wk"
+    type="button"
+  >
+    7
+  </button>
+  <button
+    class="chakra-button css-4xx2wk"
+    type="button"
+  >
+    8
+  </button>
+  <button
+    class="chakra-button css-4xx2wk"
+    type="button"
+  >
+    9
+  </button>
+  <button
+    class="chakra-button css-4xx2wk"
+    type="button"
+  >
+    10
+  </button>
+</div>
+`;

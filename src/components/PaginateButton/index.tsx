@@ -4,7 +4,7 @@ import PageButton from '../PageButton';
 const PaginateButton = (props: {
     page: number;
     totalPage: number;
-    handlePaginateButton: (pageNumber: number) => void;
+    handlePaginateButton?: (pageNumber: number) => void;
 }) => {
     return (
         <>
@@ -15,7 +15,7 @@ const PaginateButton = (props: {
                     }
 
                     if (pageNumber === 7) {
-                        return <p>...</p>
+                        return <p key={pageNumber}>...</p>
                     }
                 } else {
                     return <PageButton key={pageNumber} page={props.page} pageNumber={pageNumber} handlePaginateButton={props.handlePaginateButton} />;

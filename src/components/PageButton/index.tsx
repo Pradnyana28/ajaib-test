@@ -6,7 +6,7 @@ import {
 const PageButton = (props: {
     page: number;
     pageNumber: number;
-    handlePaginateButton: (pageNumber: number) => void;
-}) => <Button size='sm' isActive={props.page === props.pageNumber} onClick={() => props.handlePaginateButton(props.pageNumber)}>{props.pageNumber}</Button>;
+    handlePaginateButton?: (pageNumber: number) => void;
+}) => <Button size='sm' isActive={props.page === props.pageNumber} onClick={() => props.handlePaginateButton && props.handlePaginateButton(props.pageNumber)}>{props.pageNumber}</Button>;
 
 export default PageButton;

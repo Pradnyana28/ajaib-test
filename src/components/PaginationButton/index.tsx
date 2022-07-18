@@ -11,9 +11,9 @@ import PaginateButton from '../PaginateButton';
 const PaginationButton = (props: {
     page: number;
     totalPage: number;
-    handlePreviousPage: () => void;
-    handleNextPage: () => void;
-    handlePaginateButton: (pageNumber: number) => void
+    handlePreviousPage?: () => void;
+    handleNextPage?: () => void;
+    handlePaginateButton?: (pageNumber: number) => void
 }) => {
     return (
         <Flex minWidth='max-content'>
@@ -26,7 +26,11 @@ const PaginationButton = (props: {
                     size='sm'
                     onClick={props.page > 1 ? props.handlePreviousPage : undefined} icon={<ChevronLeftIcon />}
                 />
-                <PaginateButton totalPage={props.totalPage} page={props.page} handlePaginateButton={props.handlePaginateButton} />
+                <PaginateButton
+                    totalPage={props.totalPage}
+                    page={props.page}
+                    handlePaginateButton={props.handlePaginateButton}
+                />
                 <IconButton
                     aria-label='Next page'
                     isActive={props.page >= props.totalPage}
