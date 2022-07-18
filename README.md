@@ -50,6 +50,6 @@ npm run test:watch
 
 ## Performance
 
-This project already implement some of Gatsby.js Best Practices to improve the site performance such as using Preact plugin and Bundle Profiling.
+This project already implement some of Gatsby.js Best Practices to improve the site performance such as using Bundle Profiling to analyze used resources.
 
 Please refer to this documentation for more details [Performance and Scaling](https://www.gatsbyjs.com/docs/how-to/performance/).

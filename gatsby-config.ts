@@ -1,4 +1,4 @@
-import type { GatsbyConfig } from "gatsby"
+import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -14,6 +14,6 @@ const config: GatsbyConfig = {
     "gatsby-plugin-webpack-bundle-analyser-v2",
     "gatsby-plugin-perf-budgets"
   ],
-}
+};
 
-export default config
+export default config;
