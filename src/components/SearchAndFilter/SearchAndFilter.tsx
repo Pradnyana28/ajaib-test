@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Flex, Input, Text, InputGroup, InputRightAddon, Select, Button } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { CustomTableContext } from '../../store/customTable';
+import { debounce } from '../../common/utils';
 
 interface SearchAndFilterProps {
     filterValue?: string;
@@ -9,19 +10,18 @@ interface SearchAndFilterProps {
 
 export const FILTER_DEFAULT_VALUE = 'all';
 
+const updateDebounce = debounce();
+
 const SearchAndFilter = (props: SearchAndFilterProps) => {
     const { state, update } = useContext(CustomTableContext);
     const [searchValue, setSearchValue] = React.useState<string | null>(null);
 
     React.useEffect(() => {
         if (searchValue !== null) {
-            setTimeout(() => {
-                console.log(searchValue)
-                update({
-                    ...state,
-                    searchValue
-                });
-            }, 1280);
+            updateDebounce(update, {
+                ...state,
+                searchValue
+            });
         }
     }, [searchValue]);
 

@@ -1,4 +1,4 @@
-import type { GatsbyConfig } from "gatsby"
+import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -10,8 +10,10 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
-    "@chakra-ui/gatsby-plugin"
+    "@chakra-ui/gatsby-plugin",
+    "gatsby-plugin-webpack-bundle-analyser-v2",
+    "gatsby-plugin-perf-budgets"
   ],
-}
+};
 
-export default config
+export default config;
