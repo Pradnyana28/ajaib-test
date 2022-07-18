@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CustomTable /> renders without crashing 1`] = `
+<div>
+  <div
+    class="chakra-stack css-17kdbol"
+  >
+    <div
+      class="css-147dy5z"
+    >
+      <div>
+        <p
+          class="chakra-text css-g5hezf"
+        >
+          Search
+        </p>
+        <div
+          class="chakra-input__group css-4302v8"
+        >
+          <input
+            class="chakra-input css-tsqr3a"
+            data-testid="search-input"
+            placeholder="Search Keywords"
+            value=""
+          />
+          <div
+            class="chakra-input__right-addon css-nxc9bd"
+          >
+            <svg
+              class="chakra-icon css-onkibi"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M23.384,21.619,16.855,15.09a9.284,9.284,0,1,0-1.768,1.768l6.529,6.529a1.266,1.266,0,0,0,1.768,0A1.251,1.251,0,0,0,23.384,21.619ZM2.75,9.5a6.75,6.75,0,1,1,6.75,6.75A6.758,6.758,0,0,1,2.75,9.5Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p
+          class="chakra-text css-g5hezf"
+        >
+          Gender
+        </p>
+        <div
+          class="chakra-select__wrapper css-42b2qy"
+        >
+          <select
+            class="chakra-select css-1ik61og"
+            data-testid="gender-filter"
+          >
+            <option
+              value=""
+            >
+              Select Gender
+            </option>
+            <option
+              data-testid="gender-filter-all"
+              value="all"
+            >
+              All
+            </option>
+            <option
+              data-testid="gender-filter-male"
+              value="male"
+            >
+              Male
+            </option>
+            <option
+              data-testid="gender-filter-female"
+              value="female"
+            >
+              Female
+            </option>
+          </select>
+          <div
+            class="chakra-select__icon-wrapper css-162mkon"
+          >
+            <svg
+              aria-hidden="true"
+              class="chakra-select__icon"
+              focusable="false"
+              role="presentation"
+              style="width: 1em; height: 1em; color: currentColor;"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p
+          class="chakra-text css-g5hezf"
+        >
+           
+        </p>
+        <button
+          class="chakra-button css-4xx2wk"
+          data-testid="reset-filter-button"
+          type="button"
+        >
+          Reset Filter
+        </button>
+      </div>
+    </div>
+    <p>
+      No data found.
+    </p>
+    <div
+      class="css-k634du"
+    >
+      <p>
+        Page 
+        <b>
+          1
+        </b>
+         of 
+        10
+      </p>
+      <div
+        class="css-17xejub"
+      />
+      <div
+        class="chakra-stack css-193rmy8"
+      >
+        <button
+          aria-label="Previous page"
+          class="chakra-button css-p7mkev"
+          data-active=""
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="chakra-icon css-onkibi"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+        <button
+          class="chakra-button css-4xx2wk"
+          data-active=""
+          type="button"
+        >
+          1
+        </button>
+        <button
+          class="chakra-button css-4xx2wk"
+          type="button"
+        >
+          2
+        </button>
+        <button
+          class="chakra-button css-4xx2wk"
+          type="button"
+        >
+          3
+        </button>
+        <button
+          class="chakra-button css-4xx2wk"
+          type="button"
+        >
+          4
+        </button>
+        <button
+          class="chakra-button css-4xx2wk"
+          type="button"
+        >
+          5
+        </button>
+        <button
+          class="chakra-button css-4xx2wk"
+          type="button"
+        >
+          6
+        </button>
+        <button
+          class="chakra-button css-4xx2wk"
+          type="button"
+        >
+          7
+        </button>
+        <button
+          class="chakra-button css-4xx2wk"
+          type="button"
+        >
+          8
+        </button>
+        <button
+          class="chakra-button css-4xx2wk"
+          type="button"
+        >
+          9
+        </button>
+        <button
+          class="chakra-button css-4xx2wk"
+          type="button"
+        >
+          10
+        </button>
+        <button
+          aria-label="Next page"
+          class="chakra-button css-p7mkev"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="chakra-icon css-onkibi"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

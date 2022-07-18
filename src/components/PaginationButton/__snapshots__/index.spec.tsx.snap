@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PaginationButton /> renders without crashing 1`] = `
+<div>
+  <div
+    class="css-k634du"
+  >
+    <p>
+      Page 
+      <b>
+        1
+      </b>
+       of 
+      10
+    </p>
+    <div
+      class="css-17xejub"
+    />
+    <div
+      class="chakra-stack css-193rmy8"
+    >
+      <button
+        aria-label="Previous page"
+        class="chakra-button css-p7mkev"
+        data-active=""
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="chakra-icon css-onkibi"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
+      <button
+        class="chakra-button css-4xx2wk"
+        data-active=""
+        type="button"
+      >
+        1
+      </button>
+      <button
+        class="chakra-button css-4xx2wk"
+        type="button"
+      >
+        2
+      </button>
+      <button
+        class="chakra-button css-4xx2wk"
+        type="button"
+      >
+        3
+      </button>
+      <button
+        class="chakra-button css-4xx2wk"
+        type="button"
+      >
+        4
+      </button>
+      <button
+        class="chakra-button css-4xx2wk"
+        type="button"
+      >
+        5
+      </button>
+      <button
+        class="chakra-button css-4xx2wk"
+        type="button"
+      >
+        6
+      </button>
+      <button
+        class="chakra-button css-4xx2wk"
+        type="button"
+      >
+        7
+      </button>
+      <button
+        class="chakra-button css-4xx2wk"
+        type="button"
+      >
+        8
+      </button>
+      <button
+        class="chakra-button css-4xx2wk"
+        type="button"
+      >
+        9
+      </button>
+      <button
+        class="chakra-button css-4xx2wk"
+        type="button"
+      >
+        10
+      </button>
+      <button
+        aria-label="Next page"
+        class="chakra-button css-p7mkev"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="chakra-icon css-onkibi"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+`;
