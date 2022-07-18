@@ -67,7 +67,7 @@ const SearchAndFilter = (props: SearchAndFilterProps) => {
                 <Select
                     data-testid='gender-filter'
                     size='sm'
-                    value={state.filterValue ?? FILTER_DEFAULT_VALUE}
+                    value={state.filterValue}
                     placeholder='Select Gender'
                     onChange={_onFilterChange}
                 >
